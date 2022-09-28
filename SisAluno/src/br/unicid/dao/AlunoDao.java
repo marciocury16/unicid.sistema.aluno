@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 
 import br.unicid.bean.Aluno;
 import br.unicid.util.ConnectionFactory;
@@ -84,8 +85,52 @@ public void Atualizar (Aluno aluno) throws Exception {
 			
 			ConnectionFactory.closeConnection(conn,ps);
 		}
-	
-	
-	
+}
+		//excluir
+		public void excluir (Aluno aluno)throws Exception{
+			
+			if (aluno == null)
+				throw new Excepetion ("O valor passado nao pode ser nulo");
+			try {
+				String SQL = "DELETE FROM tb_aluno WHERE rgm=?";
+				conn = this.conn;
+				ps = conn.prepareStatement(SQL);
+				ps.setInt(1,aluno.getRgm());
+				ps.executeUpdate();				
+			}catch(SQLException sqle) {
+			throw new Exception ("Erro ao excluir" + sqle);				
+			}finally {
+				ConnectionFactory.closeConnection(conn ,ps);
+			}
+			
+		public Aluno procurarAluno (int rgm)throws Exception{
+			try {
+				String SQL = "SELECT* FROM tb_aluno WHERE rgm=?";
+				ps = conn.prepareStatement(SQL);
+				ps.setInt(1, rgm);
+				ps = ps.executeQuery();
+				
+				if(rs.next()) {
+					
+				int ca = rs.getInt(1);
+				String nome = rs.getString(2);
+				String email = rs.getString(3);
+				Date nascimento = rs.getDate(4);
+				String endereço = rs.getString(5);
+				aluno = new Aluno(ca,nome,email,nascimento,endereço);
+				
+				}
+				
+				return aluno;
+			}catch (SQLException sqle) {
+			throw new Exception (sqle);	
+			}finally {
+			ConnectionFactory.closeConnection(conn,ps,rs);	
+			}
 	}
 }
+				
+				
+			
+			
+
