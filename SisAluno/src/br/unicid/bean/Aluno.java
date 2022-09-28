@@ -74,10 +74,6 @@ public class Aluno {
 
 
 
-		
-
-
-
 		public String getEndereço() {
 			return endereço;
 		}
