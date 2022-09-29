@@ -4,13 +4,14 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import br.unicid.bean.Aluno;
 import br.unicid.util.ConnectionFactory;
 
-public class AlunoDao {
-	
+public class AlunoDao {	
 	private Connection conn;
 	private PreparedStatement ps;
 	private ResultSet rs;
@@ -85,12 +86,13 @@ public void Atualizar (Aluno aluno) throws Exception {
 			
 			ConnectionFactory.closeConnection(conn,ps);
 		}
+
 }
 		//excluir
 		public void excluir (Aluno aluno)throws Exception{
 			
 			if (aluno == null)
-				throw new Excepetion ("O valor passado nao pode ser nulo");
+				throw new Exception ("O valor passado nao pode ser nulo");
 			try {
 				String SQL = "DELETE FROM tb_aluno WHERE rgm=?";
 				conn = this.conn;
@@ -102,6 +104,7 @@ public void Atualizar (Aluno aluno) throws Exception {
 			}finally {
 				ConnectionFactory.closeConnection(conn ,ps);
 			}
+		}
 			
 		public Aluno procurarAluno (int rgm)throws Exception{
 			try {
@@ -117,7 +120,7 @@ public void Atualizar (Aluno aluno) throws Exception {
 				String email = rs.getString(3);
 				Date nascimento = rs.getDate(4);
 				String endereço = rs.getString(5);
-				aluno = new Aluno(ca,nome,email,nascimento,endereço);
+				aluno = new Aluno (ca,nome,email,nascimento,endereço);
 				
 				}
 				
@@ -127,9 +130,33 @@ public void Atualizar (Aluno aluno) throws Exception {
 			}finally {
 			ConnectionFactory.closeConnection(conn,ps,rs);	
 			}
-	}
-}
+			
+			public List todosAlunos() throws Exception{
 				
+			try {
+				
+				conn = this.conn;
+				ps = conn.prepareStatement("SELECT *FROM tb_aluno");
+				rs = ps.executeQuery();
+				List<Aluno> list = new ArrayList<Aluno>();
+				while (rs.next()) {
+					
+					int ca = rs.getInt(1);
+					String nome = rs.getString(2);
+					String email = rs.getString(3);
+					Date nascimento = rs.getDate(4);
+					String endereço = rs.getString(5);
+					aluno = new Aluno (ca,nome,email,nascimento,endereço);					
+				}
+				return list;				
+			}catch(SQLException sqle){
+				throw new Exception (sqle);
+			}finally {
+				
+				ConnectionFactory.closeConnection(conn, ps, rs);
+			}			
+		}
+	}
 				
 			
 			

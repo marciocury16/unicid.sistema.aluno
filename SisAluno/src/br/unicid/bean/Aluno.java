@@ -12,7 +12,7 @@ public class Aluno {
 		
 		
 		
-		public Aluno(int rgm, String nome, String email, Date dataNascimento, int idade, String endereço) 
+		public Aluno(int rgm, String nome, String email, Date dataNascimento, String endereço) 
 		
 		{
 			

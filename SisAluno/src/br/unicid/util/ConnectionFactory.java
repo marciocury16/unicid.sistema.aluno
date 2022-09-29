@@ -4,6 +4,8 @@ import java.sql.*;
 
 import javax.swing.JOptionPane;
 
+import br.unicid.dao.AlunoDao;
+
 public class ConnectionFactory {
 
 	public static Connection getConnection() throws Exception {
@@ -28,9 +30,14 @@ public class ConnectionFactory {
 
 		try {
 
-			Connection conn = ConnectionFactory.getConnection();
-			JOptionPane.showMessageDialog(null, "DB Connection");
-
+			//Connection conn = ConnectionFactory.getConnection();
+			//JOptionPane.showMessageDialog(null, "DB Connection");
+			
+			AlunoDao dao = new AlunoDAO();
+			Aluno aluno = new Aluno();
+			dao.salvar(aluno);
+			
+			
 		} catch (Exception e) {
 
 			e.printStackTrace();

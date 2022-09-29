@@ -2,7 +2,6 @@ package br.unicid.web;
 
 import java.io.IOException;
 
-import javax.jws.WebService;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class ServletAluno
  */
-@WebService("/ServletAluno")
+@WebServlet("/ServletAluno")
 public class ServletAluno extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
