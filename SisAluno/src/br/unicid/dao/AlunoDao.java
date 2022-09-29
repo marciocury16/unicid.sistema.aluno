@@ -123,14 +123,15 @@ public void Atualizar (Aluno aluno) throws Exception {
 				aluno = new Aluno (ca,nome,email,nascimento,endereço);
 				
 				}
-				
+			
 				return aluno;
 			}catch (SQLException sqle) {
 			throw new Exception (sqle);	
 			}finally {
 			ConnectionFactory.closeConnection(conn,ps,rs);	
 			}
-			
+		}
+	
 			public List todosAlunos() throws Exception{
 				
 			try {
